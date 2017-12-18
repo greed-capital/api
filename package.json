@@ -1,0 +1,61 @@
+{
+  "name": "@greed/api",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "gen": "node ./bin/gen",
+    "clean": "rm -rf public",
+    "commitmsg": "validate-commit-msg",
+    "copy-assets": "mkdir -p public && cp -R src/assets public",
+    "cz": "git-cz",
+    "lint": "eslint \"**/*.{js,ts,jsx,tsx}\"",
+    "format": "prettier --write \"**/*.{js,ts,jsx,tsx}\" && eslint --fix \"**/*.{js,ts,jsx,tsx}\"",
+    "watch": "TARGET=development nodemon",
+    "precommit": "lint-staged",
+    "postcheckout": "track-changed checkout",
+    "postmerge": "track-changed merge",
+    "postrewrite": "track-changed rewrite",
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "date-fns": "^1.28.5",
+    "express": "^4.15.0",
+    "fs-extra": "^4.0.2",
+    "helmet": "^3.6.1",
+    "http-proxy-middleware": "^0.17.4",
+    "ramda": "^0.24.1",
+    "require-yaml": "^0.0.1",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "@bruitt/commit": "^1.0.0",
+    "@bruitt/eslint-config-lint-base": "^3.0.9",
+    "axios": "^0.15.2",
+    "nodemon": "^1.11.0",
+    "track-changed": "^1.0.2"
+  },
+  "babel": {
+    "presets": [
+      "@bruitt/webpack-builder/babel"
+    ]
+  },
+  "track-changed": {
+    "yarn.lock": "yarn"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
